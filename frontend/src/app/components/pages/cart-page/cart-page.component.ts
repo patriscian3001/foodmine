@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
+import { UserService } from 'src/app/services/user.service';
 import { Cart } from 'src/app/shared/models/Cart';
 import { CartItem } from 'src/app/shared/models/CartItem';
+import { User } from 'src/app/shared/models/User';
 
 @Component({
   selector: 'app-cart-page',
@@ -10,7 +13,16 @@ import { CartItem } from 'src/app/shared/models/CartItem';
 })
 export class CartPageComponent implements OnInit {
   cart!: Cart;
-  constructor(private cartService: CartService) {
+  user!: User;
+  constructor(private cartService: CartService, private userService: UserService, private router: Router) {
+    userService.userObservable.subscribe((newUser) =>{
+      this.user = newUser;
+    });
+
+    if(!this.user.token){
+      router.navigateByUrl('/login');
+    }
+
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
     })
