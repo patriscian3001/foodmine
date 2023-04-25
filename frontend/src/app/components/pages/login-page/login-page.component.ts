@@ -27,7 +27,7 @@ export class LoginPageComponent implements OnInit {
       this.user = newUser;
     })
 
-    if(this.user.token){
+    if(this.user.id){
       this.location.back();
     }
   }

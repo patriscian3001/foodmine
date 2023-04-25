@@ -25,7 +25,7 @@ export class FoodPageComponent implements OnInit {
       this.user = newUser;
     });
 
-    if(!this.user.token){
+    if(!this.user.id){
       router.navigateByUrl('/login');
     }
 

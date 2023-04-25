@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/partials/header/header.component';
@@ -19,7 +19,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputContainerComponent } from './components/partials/input-container/input-container.component';
 import { InputValidationComponent } from './components/partials/input-validation/input-validation.component';
 import { TextInputComponent } from './components/partials/text-input/text-input.component';
-import { DefaultButtonComponent } from './components/partials/default-button/default-button.component'
+import { DefaultButtonComponent } from './components/partials/default-button/default-button.component';
+import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
+import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
+import { LoadingComponent } from './components/partials/loading/loading.component';
+import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
+import { CheckoutPageComponent } from './components/pages/checkout-page/checkout-page.component';
+import { OrderItemsListComponent } from './components/partials/order-items-list/order-items-list.component';
+import { MapComponent } from './components/partials/map/map.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +43,13 @@ import { DefaultButtonComponent } from './components/partials/default-button/def
     InputContainerComponent,
     InputValidationComponent,
     TextInputComponent,
-    DefaultButtonComponent
+    DefaultButtonComponent,
+    NotFoundPageComponent,
+    RegisterPageComponent,
+    LoadingComponent,
+    CheckoutPageComponent,
+    OrderItemsListComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,10 +61,12 @@ import { DefaultButtonComponent } from './components/partials/default-button/def
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
-      newestOnTop: false
-    })
+      newestOnTop: false,
+    }),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

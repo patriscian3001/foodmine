@@ -122,3 +122,31 @@
         4. express-async-handler
     5. Connect to MongoDB Atlas
     6. Use MongoDB instead of data.ts in apis
+15. Register User
+    1. Add Register api
+    2. Add Register service method
+    3. Add Register link
+    4. Add Register Component
+16. Loading!
+    1. Add Image
+    2. Add Component
+    3. Add Service 4. Add Interceptor
+17. Checkout Page
+    1. Create Order Model
+    2. Create Checkout Page Component
+        1. Add To Router
+    3. Add User to User Service
+    4. Add Cart to Cart Service
+    5. Create Order Items List Component
+    6. Adding Map To The Checkout Page
+        1. Add Leaflet npm package
+            1. Add @types/leaflet
+            2. Add Css to angular.json
+    2. Add AddressLatLng to Order Model
+    3. Create Map component
+        1. Add to checkout page
+        2. Add TS
+            1. Change app-map selector to map
+        3. Add Html
+        4. Add CSS
+    4. Add Auth Guard

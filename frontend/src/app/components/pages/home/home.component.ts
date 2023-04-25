@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     userService.userObservable.subscribe((newUser) =>{
       this.user = newUser;
     });
-    if(!this.user.token){
+    if(!this.user.id){
       this.router.navigateByUrl('/login');
     }
     let foodsObservable: Observable<Food[]>;
