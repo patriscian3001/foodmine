@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { FoodService } from 'src/app/services/food.service';
-import { UserService } from 'src/app/services/user.service';
 import { Food } from 'src/app/shared/models/Food';
 import { User } from 'src/app/shared/models/User';
 
@@ -19,16 +18,7 @@ export class FoodPageComponent implements OnInit {
     activatedRoute: ActivatedRoute,
     private cartService: CartService,
     private router:Router,
-    userService: UserService
   ) {
-    userService.userObservable.subscribe((newUser) =>{
-      this.user = newUser;
-    });
-
-    if(!this.user.id){
-      router.navigateByUrl('/login');
-    }
-
     activatedRoute.params.subscribe((params) => {
       if (params.id) {
         foodService.getFoodById(params.id).subscribe(serverFood =>{

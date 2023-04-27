@@ -7,15 +7,20 @@ import { LoginPageComponent } from './components/pages/login-page/login-page.com
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { CheckoutPageComponent } from './components/pages/checkout-page/checkout-page.component';
+import { AuthGuard } from './auth/guards/auth.guard';
+import { PaymentPageComponent } from './components/pages/payment-page/payment-page.component';
+import { OrderTrackPageComponent } from './components/pages/order-track-page/order-track-page.component';
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'search/:searchTerm', component: HomeComponent },
-  { path: 'tag/:tag', component: HomeComponent },
-  { path: 'food/:id', component: FoodPageComponent },
-  { path: 'cart-page', component: CartPageComponent },
+  { path: '', component: HomeComponent, canActivate:[AuthGuard] },
+  { path: 'search/:searchTerm', component: HomeComponent, canActivate:[AuthGuard] },
+  { path: 'tag/:tag', component: HomeComponent, canActivate:[AuthGuard] },
+  { path: 'food/:id', component: FoodPageComponent, canActivate:[AuthGuard] },
+  { path: 'cart-page', component: CartPageComponent, canActivate:[AuthGuard] },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: 'checkout', component: CheckoutPageComponent },
+  { path:'checkout', component: CheckoutPageComponent, canActivate:[AuthGuard]},
+  { path:'payment', component: PaymentPageComponent, canActivate:[AuthGuard]},
+  { path:'track/:orderId', component: OrderTrackPageComponent, canActivate:[AuthGuard]},
   { path: '**', redirectTo: 'not-found-page' },
   { path: 'not-found-page', component: NotFoundPageComponent },
 ];

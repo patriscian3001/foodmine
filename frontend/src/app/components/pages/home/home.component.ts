@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FoodService } from 'src/app/services/food.service';
-import { UserService } from 'src/app/services/user.service';
 import { Food } from 'src/app/shared/models/Food';
 import { User } from 'src/app/shared/models/User';
 
@@ -14,13 +13,7 @@ import { User } from 'src/app/shared/models/User';
 export class HomeComponent implements OnInit {
   foods: Food[] = [];
   user!: User;
-  constructor (private foodService:FoodService, activatedRoute:ActivatedRoute, private userService: UserService, private router: Router) {
-    userService.userObservable.subscribe((newUser) =>{
-      this.user = newUser;
-    });
-    if(!this.user.id){
-      this.router.navigateByUrl('/login');
-    }
+  constructor (private foodService:FoodService, activatedRoute:ActivatedRoute) {
     let foodsObservable: Observable<Food[]>;
     activatedRoute.params.subscribe((params) => {
       if(params.searchTerm){

@@ -19,10 +19,6 @@ export class CartPageComponent implements OnInit {
       this.user = newUser;
     });
 
-    if(!this.user.id){
-      router.navigateByUrl('/login');
-    }
-
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
     })

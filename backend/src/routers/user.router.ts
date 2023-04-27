@@ -24,25 +24,29 @@ router.get(
 
 router.post("/login", asyncHandler(
   async (req, res) => {
-    const { email, password } = req.body;
-    const user = await UserModel.findOne({ email });
-    if (user) {
-      const passwordMatches = await bcrypt.compare(password, user.password);
-      if (passwordMatches) {
-        res.send(generateTokenResponse(user));
-        return;
-      }
-    }
-    res.status(HTTP_BAD_REQUEST).send("Username or password is not valid!");
-  })
-);
+    const {email, password} = req.body;
+    const user = await UserModel.findOne({email});
+  
+     if(user && (await bcrypt.compare(password,user.password))) {
+      res.send(generateTokenResponse(user));
+     }
+     else{
+       res.status(HTTP_BAD_REQUEST).send("Username or password is invalid!");
+     }
+  
+  }
+))
 
 router.post('/register', asyncHandler(
   async (req, res) => {
     const {name, email, password, address} = req.body;
     const user = await UserModel.findOne({email});
     if(user){
-      res.status(HTTP_BAD_REQUEST).send('User already exist, please login.');
+      res.send(user);
+    }
+    else{
+      res.status(HTTP_BAD_REQUEST)
+      .send('User is already exist, please login!');
       return;
     }
     const ecryptedPassword = await bcrypt.hash(password, 10);
@@ -64,17 +68,24 @@ router.post('/register', asyncHandler(
 const generateTokenResponse = (user: any) => {
   const token = jwt.sign(
     {
+      id: user.id,
       email: user.email,
       isAdmin: user.isAdmin,
     },
-    "SomeRandomText",
+    process.env.JWT_SECRET!,
     {
       expiresIn: "30d",
     }
   );
 
-  user.token = token;
-  return user;
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    address: user.address,
+    isAdmin: user.isAdmin,
+    token: token
+  };
 };
 
 export default router;

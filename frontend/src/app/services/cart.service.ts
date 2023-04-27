@@ -33,7 +33,7 @@ export class CartService {
   }
 
   clearCart() {
-    this.cart = this.getCartFromLocalStorage();
+    this.cart = new Cart();
     this.setCartToLocalStorage();
   }
 

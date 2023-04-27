@@ -21,15 +21,11 @@ export class LoginPageComponent implements OnInit {
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private location: Location
   ) {
     userService.userObservable.subscribe((newUser) =>{
       this.user = newUser;
     })
 
-    if(this.user.id){
-      this.location.back();
-    }
   }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
