@@ -42,9 +42,6 @@ router.post('/register', asyncHandler(
     const {name, email, password, address} = req.body;
     const user = await UserModel.findOne({email});
     if(user){
-      res.send(user);
-    }
-    else{
       res.status(HTTP_BAD_REQUEST)
       .send('User is already exist, please login!');
       return;
